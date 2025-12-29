@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIGA: Vision-as-Inverse-Graphics as a VLM Coding Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --text-primary: #e8e6e3;
+            --text-secondary: #a8a5a0;
+            --text-muted: #6b6966;
+            --accent-primary: #f7b267;
+            --accent-secondary: #e8985a;
+            --accent-glow: rgba(247, 178, 103, 0.15);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(26, 26, 37, 0.6);
+            --gradient-1: linear-gradient(135deg, #f7b267 0%, #e8985a 50%, #d67f4c 100%);
+            --gradient-2: linear-gradient(135deg, rgba(247, 178, 103, 0.1) 0%, rgba(232, 152, 90, 0.05) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Background Pattern */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(247, 178, 103, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(232, 152, 90, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(214, 127, 76, 0.04) 0%, transparent 70%);
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header / Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 24px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--gradient-2);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent-primary);
+            letter-spacing: 0.5px;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .title .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Authors */
+        .authors {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 32px;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .author {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+        }
+
+        .author sup {
+            color: var(--accent-primary);
+            font-size: 0.7em;
+            margin-left: 2px;
+        }
+
+        .affiliations {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 24px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.35s both;
+        }
+
+        .affiliation {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .affiliation sup {
+            color: var(--accent-secondary);
+            margin-right: 4px;
+        }
+
+        /* Links */
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn:hover {
+            background: var(--accent-glow);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .link-btn i {
+            font-size: 1.1rem;
+            color: var(--accent-primary);
+        }
+
+        .link-btn.primary {
+            background: var(--gradient-1);
+            border: none;
+            color: var(--bg-primary);
+        }
+
+        .link-btn.primary i {
+            color: var(--bg-primary);
+        }
+
+        .link-btn.primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Abstract */
+        .abstract {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 32px 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            text-align: left;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+            backdrop-filter: blur(10px);
+        }
+
+        .abstract h3 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-primary);
+            margin-bottom: 16px;
+        }
+
+        .abstract p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--accent-glow);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Video Section */
+        .video-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: var(--bg-tertiary);
+        }
+
+        .video-wrapper video,
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+        }
+
+        .video-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            color: var(--accent-primary);
+            opacity: 0.6;
+        }
+
+        /* Results Section */
+        .results-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 48px;
+        }
+
+        .tab-btn {
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: var(--bg-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Result Cards */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .result-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(247, 178, 103, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .result-header h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .result-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .result-media {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .result-media.single {
+            grid-template-columns: 1fr;
+        }
+
+        .media-item {
+            position: relative;
+            aspect-ratio: 16/10;
+            background: var(--bg-tertiary);
+            overflow: hidden;
+        }
+
+        .media-item img,
+        .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-label {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            padding: 4px 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            backdrop-filter: blur(4px);
+        }
+
+        .media-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .media-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        /* Tables Section */
+        .tables-container {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .table-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-header h4 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .table-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .table-wrapper {
+            padding: 24px 32px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        td {
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(247, 178, 103, 0.05);
+        }
+
+        .best-score {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .method-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .method-ours {
+            background: var(--accent-glow) !important;
+        }
+
+        .method-ours .method-name {
+            color: var(--accent-primary);
+        }
+
+        /* BibTeX Section */
+        .bibtex-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .bibtex-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .bibtex-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .bibtex-box pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-glow);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 16px;
+            }
+
+            .authors {
+                gap: 8px 20px;
+            }
+
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .link-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .abstract {
+                padding: 24px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-media {
+                grid-template-columns: 1fr;
+            }
+
+            .table-wrapper {
+                padding: 16px;
+            }
+
+            th, td {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="bg-grid"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <span class="badge">NeurIPS 2025 (Placeholder)</span>
+        
+        <h1 class="title">
+            <span class="highlight">VIGA:</span> Vision-as-Inverse-Graphics<br>
+            as a VLM Coding Agent
+        </h1>
+        
+        <p class="subtitle">
+            A unified framework that leverages Vision-Language Models to understand and manipulate 3D scenes through inverse graphics and code generation.
+        </p>
+
+        <div class="authors">
+            <span class="author">Author Name<sup>1,2</sup></span>
+            <span class="author">Author Name<sup>1</sup></span>
+            <span class="author">Author Name<sup>2</sup></span>
+            <span class="author">Author Name<sup>1</sup></span>
+            <span class="author">Author Name<sup>2</sup></span>
+        </div>
+
+        <div class="affiliations">
+            <span class="affiliation"><sup>1</sup>University Name</span>
+            <span class="affiliation"><sup>2</sup>Research Lab Name</span>
+        </div>
+
+        <div class="links">
+            <a href="#" class="link-btn primary">
+                <i class="fas fa-file-alt"></i>
+                Paper
+            </a>
+            <a href="#" class="link-btn">
+                <i class="fab fa-github"></i>
+                Code
+            </a>
+            <a href="#" class="link-btn">
+                <i class="fas fa-database"></i>
+                Dataset
+            </a>
+            <a href="#" class="link-btn">
+                <i class="fab fa-youtube"></i>
+                Video
+            </a>
+        </div>
+
+        <div class="abstract">
+            <h3>Abstract</h3>
+            <p>
+                [Placeholder] We present VIGA, a novel framework that treats vision as inverse graphics and employs Vision-Language Models (VLMs) as coding agents to understand, reason about, and manipulate 3D scenes. Our approach bridges the gap between 2D visual perception and 3D scene understanding by learning to generate executable code that reconstructs and modifies 3D environments. VIGA demonstrates strong performance on both static scene reconstruction and dynamic scene manipulation tasks, outperforming existing methods while providing interpretable and editable outputs. Our framework opens new possibilities for AI-assisted 3D content creation, scene editing, and embodied AI applications.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pipeline Video Section -->
+    <section class="section" id="pipeline">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <span class="section-tag">Method</span>
+                <h2 class="section-title">Pipeline Overview</h2>
+                <p class="section-desc">
+                    Watch how VIGA processes visual input and generates code to reconstruct and manipulate 3D scenes.
+                </p>
+            </div>
+
+            <div class="video-container scroll-animate">
+                <div class="video-wrapper">
+                    <!-- Replace with actual video -->
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Pipeline Video Placeholder</span>
+                        <span style="font-size: 0.8rem; margin-top: 8px;">Replace with: video/pipeline.mp4</span>
+                    </div>
+                    <!-- <video controls poster="assets/pipeline_poster.jpg">
+                        <source src="video/pipeline.mp4" type="video/mp4">
+                    </video> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="section" id="results">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <span class="section-tag">Results</span>
+                <h2 class="section-title">Qualitative Results</h2>
+                <p class="section-desc">
+                    Explore our results on static scene reconstruction and dynamic scene manipulation.
+                </p>
+            </div>
+
+            <div class="results-tabs scroll-animate">
+                <button class="tab-btn active" data-tab="static">Static Scenes</button>
+                <button class="tab-btn" data-tab="dynamic">Dynamic Scenes</button>
+            </div>
+
+            <!-- Static Scenes Tab -->
+            <div class="tab-content active" id="static">
+                <div class="results-grid">
+                    <!-- Result Card 1 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 1: Living Room</h4>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <!-- <img src="assets/static/scene1_input.jpg" alt="Input"> -->
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <!-- <video controls muted loop>
+                                    <source src="video/static/scene1_output.mp4" type="video/mp4">
+                                </video> -->
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Card 2 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 2: Kitchen</h4>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Card 3 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 3: Office</h4>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Card 4 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 4: Bedroom</h4>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Scenes Tab -->
+            <div class="tab-content" id="dynamic">
+                <div class="results-grid">
+                    <!-- Dynamic Result Card 1 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Dynamic Scene 1</h4>
+                            <p>"Move the chair closer to the window and rotate it to face the desk."</p>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Result Card 2 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Dynamic Scene 2</h4>
+                            <p>"Add a floor lamp in the corner and turn on the ceiling lights."</p>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Result Card 3 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Dynamic Scene 3</h4>
+                            <p>"Change the material of the table from wood to glass and add a vase on top."</p>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Result Card 4 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Dynamic Scene 4</h4>
+                            <p>"Remove the bookshelf and replace it with a TV stand."</p>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>Input Image</span>
+                                </div>
+                                <span class="media-label">Input</span>
+                            </div>
+                            <div class="media-item">
+                                <div class="media-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Output Video</span>
+                                </div>
+                                <span class="media-label">Output</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quantitative Results Section -->
+    <section class="section" id="quantitative">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <span class="section-tag">Evaluation</span>
+                <h2 class="section-title">Quantitative Results</h2>
+                <p class="section-desc">
+                    Comprehensive comparison with state-of-the-art methods across multiple benchmarks.
+                </p>
+            </div>
+
+            <div class="tables-container">
+                <!-- Table 1: Static Scene Reconstruction -->
+                <div class="table-card scroll-animate">
+                    <div class="table-header">
+                        <h4>Table 1: Static Scene Reconstruction</h4>
+                        <p>Comparison on the [Benchmark Name] dataset. ↑ indicates higher is better, ↓ indicates lower is better.</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>PSNR ↑</th>
+                                    <th>SSIM ↑</th>
+                                    <th>LPIPS ↓</th>
+                                    <th>Chamfer-L1 ↓</th>
+                                    <th>F-Score ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="method-name">Method A</td>
+                                    <td>24.32</td>
+                                    <td>0.842</td>
+                                    <td>0.156</td>
+                                    <td>0.089</td>
+                                    <td>0.721</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">Method B</td>
+                                    <td>25.18</td>
+                                    <td>0.867</td>
+                                    <td>0.132</td>
+                                    <td>0.075</td>
+                                    <td>0.756</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">Method C</td>
+                                    <td>26.45</td>
+                                    <td>0.883</td>
+                                    <td>0.118</td>
+                                    <td>0.068</td>
+                                    <td>0.789</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">Method D</td>
+                                    <td>27.12</td>
+                                    <td>0.891</td>
+                                    <td>0.105</td>
+                                    <td>0.062</td>
+                                    <td>0.812</td>
+                                </tr>
+                                <tr class="method-ours">
+                                    <td class="method-name">VIGA (Ours)</td>
+                                    <td class="best-score">28.76</td>
+                                    <td class="best-score">0.912</td>
+                                    <td class="best-score">0.087</td>
+                                    <td class="best-score">0.051</td>
+                                    <td class="best-score">0.856</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Table 2: Dynamic Scene Manipulation -->
+                <div class="table-card scroll-animate">
+                    <div class="table-header">
+                        <h4>Table 2: Dynamic Scene Manipulation</h4>
+                        <p>Evaluation on scene editing tasks with language instructions.</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Edit Accuracy ↑</th>
+                                    <th>CLIP Score ↑</th>
+                                    <th>User Preference ↑</th>
+                                    <th>Exec. Success ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="method-name">Method A</td>
+                                    <td>58.3%</td>
+                                    <td>0.712</td>
+                                    <td>32.1%</td>
+                                    <td>71.2%</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">Method B</td>
+                                    <td>64.7%</td>
+                                    <td>0.745</td>
+                                    <td>38.5%</td>
+                                    <td>78.6%</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">Method C</td>
+                                    <td>71.2%</td>
+                                    <td>0.768</td>
+                                    <td>45.2%</td>
+                                    <td>82.3%</td>
+                                </tr>
+                                <tr class="method-ours">
+                                    <td class="method-name">VIGA (Ours)</td>
+                                    <td class="best-score">82.5%</td>
+                                    <td class="best-score">0.834</td>
+                                    <td class="best-score">67.8%</td>
+                                    <td class="best-score">91.4%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Table 3: Ablation Study -->
+                <div class="table-card scroll-animate">
+                    <div class="table-header">
+                        <h4>Table 3: Ablation Study</h4>
+                        <p>Analysis of key components in the VIGA framework.</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Configuration</th>
+                                    <th>PSNR ↑</th>
+                                    <th>Edit Acc. ↑</th>
+                                    <th>Code Exec. ↑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="method-name">w/o Inverse Graphics</td>
+                                    <td>24.12</td>
+                                    <td>68.3%</td>
+                                    <td>85.2%</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">w/o Code Generation</td>
+                                    <td>26.45</td>
+                                    <td>52.1%</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">w/o Visual Feedback</td>
+                                    <td>27.18</td>
+                                    <td>74.6%</td>
+                                    <td>88.7%</td>
+                                </tr>
+                                <tr>
+                                    <td class="method-name">w/o Self-Refinement</td>
+                                    <td>27.89</td>
+                                    <td>78.2%</td>
+                                    <td>89.3%</td>
+                                </tr>
+                                <tr class="method-ours">
+                                    <td class="method-name">Full Model</td>
+                                    <td class="best-score">28.76</td>
+                                    <td class="best-score">82.5%</td>
+                                    <td class="best-score">91.4%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BibTeX Section -->
+    <section class="section bibtex-section" id="citation">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <span class="section-tag">Citation</span>
+                <h2 class="section-title">BibTeX</h2>
+                <p class="section-desc">
+                    If you find our work useful, please consider citing:
+                </p>
+            </div>
+
+            <div class="bibtex-container scroll-animate">
+                <div class="bibtex-box">
+                    <button class="copy-btn" onclick="copyBibtex()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="bibtex-content">@inproceedings{author2025viga,
+  title={{VIGA}: Vision-as-Inverse-Graphics as a {VLM} Coding Agent},
+  author={Author, First and Author, Second and Author, Third},
+  booktitle={Conference Name},
+  year={2025},
+  organization={Publisher}
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            Website template inspired by 
+            <a href="https://ai.stanford.edu/~sunfanyun/3d-generalist/" target="_blank">3D-Generalist</a>, 
+            <a href="https://ianhuang0630.github.io/BlenderAlchemyWeb/" target="_blank">BlenderAlchemy</a>, and 
+            <a href="https://tmonnier.com/DBW/" target="_blank">DBW</a>.
+        </p>
+    </footer>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update active tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Copy BibTeX
+        function copyBibtex() {
+            const bibtexContent = document.getElementById('bibtex-content').textContent;
+            navigator.clipboard.writeText(bibtexContent).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        // Video play on hover (for result cards)
+        document.querySelectorAll('.result-card video').forEach(video => {
+            video.addEventListener('mouseenter', () => {
+                video.play();
+            });
+            video.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+    </script>
+</body>
+</html>
+
