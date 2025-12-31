@@ -151,3 +151,7 @@ The CSS uses CSS variables for easy theming. Modify these in `:root`:
 
 Feel free to use and modify this template for your academic projects.
 
+# TODO List
+- [ ] 1. 先把文字+现有的结果（包含开头那个视频）放上去
+- [ ] 2. 把新的动态结果录视频+看还差什么
+- [ ] 3. 最后再录新视频

@@ -80,6 +80,10 @@
             padding: 0 24px;
         }
 
+        .container.wide {
+            max-width: 1400px;
+        }
+
         /* Header / Hero Section */
         .hero {
             min-height: 100vh;
@@ -394,8 +398,14 @@
         /* Result Cards */
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .result-card {
@@ -442,21 +452,23 @@
 
         .media-item {
             position: relative;
-            aspect-ratio: 16/10;
+            aspect-ratio: 16/9;
             background: var(--bg-tertiary);
             overflow: hidden;
+            min-height: 200px;
         }
 
         .media-item img,
         .media-item video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background: var(--bg-tertiary);
         }
 
         .media-label {
             position: absolute;
-            bottom: 8px;
+            top: 8px;
             left: 8px;
             padding: 4px 10px;
             background: rgba(0, 0, 0, 0.7);
@@ -805,7 +817,7 @@
 
     <!-- Results Section -->
     <section class="section" id="results">
-        <div class="container">
+        <div class="container wide">
             <div class="section-header scroll-animate">
                 <span class="section-tag">Results</span>
                 <h2 class="section-title">Qualitative Results</h2>
@@ -825,26 +837,37 @@
                     <!-- Result Card 1 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Scene 1: Living Room</h4>
+                            <h4>Scene 1: Golden Gate Bridge</h4>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <!-- <img src="assets/static/scene1_input.jpg" alt="Input"> -->
-                                <span class="media-label">Input</span>
+                                <img src="assets/static/goldengate/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <!-- <video controls muted loop>
-                                    <source src="video/static/scene1_output.mp4" type="video/mp4">
-                                </video> -->
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/static/goldengate/goldengate.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Card 6 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 2: The White House</h4>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <img src="assets/static/whitehouse/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
+                            </div>
+                            <div class="media-item">
+                                <video controls muted loop playsinline>
+                                    <source src="assets/static/whitehouse/whitehouse.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
@@ -852,22 +875,18 @@
                     <!-- Result Card 2 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Scene 2: Kitchen</h4>
+                            <h4>Scene 3: Bathroom</h4>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <span class="media-label">Input</span>
+                                <img src="assets/static/bathroom/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/static/bathroom/bathroom.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
@@ -875,22 +894,18 @@
                     <!-- Result Card 3 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Scene 3: Office</h4>
+                            <h4>Scene 4: Restroom</h4>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <span class="media-label">Input</span>
+                                <img src="assets/static/restroom/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/static/restroom/restroom.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
@@ -898,25 +913,42 @@
                     <!-- Result Card 4 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Scene 4: Bedroom</h4>
+                            <h4>Scene 5: Kitchen</h4>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <span class="media-label">Input</span>
+                                <img src="assets/static/kitchen/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/static/kitchen/kitchen.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Result Card 5 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 6: Blue Hour</h4>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <img src="assets/static/blueroom/target.jpeg" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
+                            </div>
+                            <div class="media-item">
+                                <video controls muted loop playsinline>
+                                    <source src="assets/static/blueroom/blueroom.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
                 </div>
             </div>
 
@@ -926,23 +958,19 @@
                     <!-- Dynamic Result Card 1 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Dynamic Scene 1</h4>
-                            <p>"Move the chair closer to the window and rotate it to face the desk."</p>
+                            <h4>Scene 1: Billiards</h4>
+                            <p>"The white ball strikes other balls."</p>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <span class="media-label">Input</span>
+                                <img src="assets/dynamic/billiards/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/dynamic/billiards/billiards.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
@@ -950,23 +978,19 @@
                     <!-- Dynamic Result Card 2 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Dynamic Scene 2</h4>
-                            <p>"Add a floor lamp in the corner and turn on the ceiling lights."</p>
+                            <h4>Scene 2: Conveyor</h4>
+                            <p>"The box rolled on the conveyor belt and fell at the end."</p>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <span class="media-label">Input</span>
+                                <img src="assets/dynamic/conveyor/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/dynamic/conveyor/conveyor.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
@@ -974,23 +998,19 @@
                     <!-- Dynamic Result Card 3 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Dynamic Scene 3</h4>
-                            <p>"Change the material of the table from wood to glass and add a vase on top."</p>
+                            <h4>Scene 3: Mirror</h4>
+                            <p>"Throw a ball to break the mirror."</p>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <span class="media-label">Input</span>
+                                <img src="assets/dynamic/mirror/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/dynamic/mirror/mirror.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
@@ -998,23 +1018,59 @@
                     <!-- Dynamic Result Card 4 -->
                     <div class="result-card scroll-animate">
                         <div class="result-header">
-                            <h4>Dynamic Scene 4</h4>
-                            <p>"Remove the bookshelf and replace it with a TV stand."</p>
+                            <h4>Scene 4: Earthquake</h4>
+                            <p>"Simulate an earthquake scenario: objects on the table and chairs vibrate slightly, then fall off the table and chairs."</p>
                         </div>
                         <div class="result-media">
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-image"></i>
-                                    <span>Input Image</span>
-                                </div>
-                                <span class="media-label">Input</span>
+                                <img src="assets/dynamic/earthquake/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
                             </div>
                             <div class="media-item">
-                                <div class="media-placeholder">
-                                    <i class="fas fa-video"></i>
-                                    <span>Output Video</span>
-                                </div>
-                                <span class="media-label">Output</span>
+                                <video controls muted loop playsinline>
+                                    <source src="assets/dynamic/earthquake/earthquake.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Result Card 5 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 5: Art</h4>
+                            <p>"Throw a ball onto the table and smash all the objects on the table down."</p>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <img src="assets/dynamic/art/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
+                            </div>
+                            <div class="media-item">
+                                <video controls muted loop playsinline>
+                                    <source src="assets/dynamic/art/art.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Result Card 6 -->
+                    <div class="result-card scroll-animate">
+                        <div class="result-header">
+                            <h4>Scene 6: Grammar</h4>
+                            <p>"Three seconds later, all the cans with labels containing exactly three characters each fell off the wall."</p>
+                        </div>
+                        <div class="result-media">
+                            <div class="media-item">
+                                <img src="assets/dynamic/grammar/target.png" alt="Golden Gate Bridge Input">
+                                <span class="media-label">Input Image</span>
+                            </div>
+                            <div class="media-item">
+                                <video controls muted loop playsinline>
+                                    <source src="assets/dynamic/grammar/grammar.mp4" type="video/mp4">
+                                </video>
+                                <span class="media-label">Output Scene</span>
                             </div>
                         </div>
                     </div>
