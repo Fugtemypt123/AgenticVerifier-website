@@ -142,7 +142,7 @@
             font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             font-weight: 300;
             color: var(--text-secondary);
-            max-width: 700px;
+            max-width: 900px;
             margin-bottom: 40px;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
@@ -150,11 +150,18 @@
         /* Authors */
         .authors {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px 32px;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 16px;
             animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .author-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
         }
 
         .author {
@@ -236,6 +243,25 @@
         .link-btn.primary:hover {
             opacity: 0.9;
             transform: translateY(-2px);
+        }
+
+        /* Hero Video */
+        .hero-video-container {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
         }
 
         /* Abstract */
@@ -769,7 +795,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <span class="badge">NeurIPS 2025 (Placeholder)</span>
+        <span class="badge">Preprint 2026</span>
         
         <h1 class="title">
             <span class="highlight">VIGA:</span> Vision-as-Inverse-Graphics<br>
@@ -781,16 +807,25 @@
         </p>
 
         <div class="authors">
-            <span class="author">Author Name<sup>1,2</sup></span>
-            <span class="author">Author Name<sup>1</sup></span>
-            <span class="author">Author Name<sup>2</sup></span>
-            <span class="author">Author Name<sup>1</sup></span>
-            <span class="author">Author Name<sup>2</sup></span>
+            <div class="author-row">
+                <span class="author">Shaofeng Yin<sup>1,4</sup></span>
+                <span class="author">Jiaxin Ge<sup>1</sup></span>
+                <span class="author">Zora Zhiruo Wang<sup>2</sup></span>
+                <span class="author">Xiuyu Li<sup>1</sup></span>
+            </div>
+            <div class="author-row">
+                <span class="author">Michel J. Black<sup>3</sup></span>
+                <span class="author">Trevor Darrell<sup>1</sup></span>
+                <span class="author">Angjoo Kanazawa<sup>1</sup></span>
+                <span class="author">Haiwen Feng<sup>1,4</sup></span>
+            </div>
         </div>
 
         <div class="affiliations">
-            <span class="affiliation"><sup>1</sup>University Name</span>
-            <span class="affiliation"><sup>2</sup>Research Lab Name</span>
+            <span class="affiliation"><sup>1</sup>University of California, Berkeley</span>
+            <span class="affiliation"><sup>2</sup>Carnegie Mellon University</span>
+            <span class="affiliation"><sup>3</sup>Max Planck Institute for Intelligent Systems</span>
+            <span class="affiliation"><sup>4</sup>Impossible Inc.</span>
         </div>
 
         <div class="links">
@@ -803,19 +838,22 @@
                 Code
             </a>
             <a href="#" class="link-btn">
-                <i class="fas fa-database"></i>
-                Dataset
-            </a>
-            <a href="#" class="link-btn">
                 <i class="fab fa-youtube"></i>
                 Video
             </a>
         </div>
 
+        <div class="hero-video-container">
+            <video class="hero-video" controls muted loop playsinline>
+                <source src="video/intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
         <div class="abstract">
             <h3>Abstract</h3>
             <p>
-                [Placeholder] We present VIGA, a novel framework that treats vision as inverse graphics and employs Vision-Language Models (VLMs) as coding agents to understand, reason about, and manipulate 3D scenes. Our approach bridges the gap between 2D visual perception and 3D scene understanding by learning to generate executable code that reconstructs and modifies 3D environments. VIGA demonstrates strong performance on both static scene reconstruction and dynamic scene manipulation tasks, outperforming existing methods while providing interpretable and editable outputs. Our framework opens new possibilities for AI-assisted 3D content creation, scene editing, and embodied AI applications.
+                We present VIGA, an execution-grounded, analysis-by-synthesis code agent that reconstructs real images as editable, executable scene programs in graphics engines. Rather than generating scene code in a single pass, VIGA alternates between Generator and Verifier roles: it writes code, executes it in a graphics engine, renders the scene from multiple viewpoints, identifies discrepancies with the input image, and iteratively refines the program. Operating entirely zero-shot without fine-tuning, VIGA leverages an evolving contextual memory that accumulates plans, code diffs, verification feedback, and render history to progressively transform imprecise attempts into coherent programs. Beyond 3D reconstruction, the framework enables programmatic scene editing, 4D dynamic reconstruction, and structured 2D layout synthesis. We introduce BlenderBench to evaluate reconstruction fidelity and agentic behaviors including multi-view spatial consistency, discrepancy localization, and sustained multi-modal tool use.
             </p>
         </div>
     </section>
@@ -839,9 +877,9 @@
                         <span>Pipeline Video Placeholder</span>
                         <span style="font-size: 0.8rem; margin-top: 8px;">Replace with: video/pipeline.mp4</span>
                     </div>
-                    <!-- <video controls poster="assets/pipeline_poster.jpg">
+                    <video controls muted loop playsinline>
                         <source src="video/pipeline.mp4" type="video/mp4">
-                    </video> -->
+                    </video>
                 </div>
             </div>
         </div>
