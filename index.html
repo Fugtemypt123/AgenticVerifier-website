@@ -495,13 +495,15 @@
         .media-label {
             position: absolute;
             top: 8px;
-            left: 8px;
-            padding: 4px 10px;
+            right: 8px;
+            padding: 6px 10px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 4px;
             font-size: 0.75rem;
             color: var(--text-secondary);
             backdrop-filter: blur(4px);
+            text-align: center;
+            line-height: 1.4;
         }
 
         .media-placeholder {
@@ -865,7 +867,7 @@
                 <span class="section-tag">Method</span>
                 <h2 class="section-title">Pipeline Overview</h2>
                 <p class="section-desc">
-                    Watch how VIGA processes visual input and generates code to reconstruct and manipulate 3D scenes.
+                    Watch how VIGA processes visual input and generates code to reconstruct 3D and 4D scenes.
                 </p>
             </div>
 
@@ -892,7 +894,7 @@
                 <span class="section-tag">Results</span>
                 <h2 class="section-title">Qualitative Results</h2>
                 <p class="section-desc">
-                    Explore our results on static scene reconstruction and dynamic scene manipulation.
+                    Explore our results on static scene and dynamic scene reconstruction.
                 </p>
             </div>
 
@@ -912,13 +914,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/static/goldengate/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/static/goldengate/goldengate.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -931,13 +933,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/static/whitehouse/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/static/whitehouse/whitehouse.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -950,13 +952,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/static/bathroom/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/static/bathroom/bathroom.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -969,13 +971,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/static/restroom/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/static/restroom/restroom.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -988,13 +990,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/static/kitchen/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/static/kitchen/kitchen.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -1007,13 +1009,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/static/blueroom/target.jpeg" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/static/blueroom/blueroom.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -1034,13 +1036,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/dynamic/billiards/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/dynamic/billiards/billiards.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -1054,13 +1056,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/dynamic/art/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/dynamic/art/art.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -1074,13 +1076,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/dynamic/earthquake/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/dynamic/earthquake/earthquake.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -1094,13 +1096,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/dynamic/conveyor/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/dynamic/conveyor/conveyor.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div> -->
@@ -1114,13 +1116,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/dynamic/mirror/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/dynamic/mirror/mirror.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -1134,13 +1136,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/dynamic/fire/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/dynamic/fire/fire.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
@@ -1154,13 +1156,13 @@
                         <div class="result-media">
                             <div class="media-item">
                                 <img src="assets/dynamic/waterfall/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input Image</span>
+                                <span class="media-label">Input<br>Image</span>
                             </div>
                             <div class="media-item">
                                 <video controls muted loop playsinline>
                                     <source src="assets/dynamic/waterfall/waterfall.mp4" type="video/mp4">
                                 </video>
-                                <span class="media-label">Output Scene</span>
+                                <span class="media-label">Output<br>Scene</span>
                             </div>
                         </div>
                     </div>
