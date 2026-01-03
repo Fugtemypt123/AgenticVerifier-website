@@ -470,6 +470,8 @@
         .result-media {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .result-media.single {
@@ -482,6 +484,8 @@
             background: var(--bg-tertiary);
             overflow: hidden;
             min-height: 200px;
+            box-sizing: border-box;
+            max-width: 100%;
         }
 
         .media-item img,
@@ -490,12 +494,14 @@
             height: 100%;
             object-fit: contain;
             background: var(--bg-tertiary);
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .media-label {
             position: absolute;
             top: 8px;
-            right: 8px;
+            right: 0px;
             padding: 6px 10px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 4px;
@@ -504,6 +510,7 @@
             backdrop-filter: blur(4px);
             text-align: center;
             line-height: 1.4;
+            z-index: 10;
         }
 
         .media-placeholder {
