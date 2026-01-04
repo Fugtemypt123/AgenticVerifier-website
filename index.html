@@ -756,8 +756,26 @@
                 padding: 40px 16px;
             }
 
-            .authors {
-                gap: 8px 20px;
+            .title {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+            }
+
+            .subtitle {
+                font-size: clamp(1rem, 4vw, 1.2rem);
+                max-width: 100%;
+            }
+
+            .author-row {
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+
+            .author {
+                font-size: 0.95rem;
+            }
+
+            .affiliation {
+                font-size: 0.85rem;
             }
 
             .links {
@@ -771,29 +789,181 @@
                 justify-content: center;
             }
 
+            .hero-video-container {
+                max-width: 100%;
+                margin: 0 auto 40px;
+                border-radius: 12px;
+            }
+
             .abstract {
-                padding: 24px;
+                padding: 20px;
+                margin: 0 auto 40px;
+            }
+
+            .abstract h3 {
+                font-size: 0.75rem;
+            }
+
+            .abstract p {
+                font-size: 1rem;
+                line-height: 1.7;
             }
 
             .section {
                 padding: 60px 0;
             }
 
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .section-title {
+                font-size: clamp(1.8rem, 6vw, 2.2rem);
+            }
+
+            .section-desc {
+                font-size: 1rem;
+                max-width: 100%;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .container.wide {
+                padding: 0 20px;
+            }
+
             .results-grid {
                 grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .result-card {
+                border-radius: 12px;
+            }
+
+            .result-header {
+                padding: 16px;
+            }
+
+            .result-header h4 {
+                font-size: 1rem;
+            }
+
+            .result-header p {
+                font-size: 0.85rem;
             }
 
             .result-media {
                 grid-template-columns: 1fr;
             }
 
+            .media-item {
+                min-height: 180px;
+            }
+
+            .media-label {
+                top: 6px;
+                right: 10px;
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+            .video-container {
+                max-width: 100%;
+                border-radius: 12px;
+            }
+
             .table-wrapper {
-                padding: 16px;
+                padding: 12px;
+                overflow-x: auto;
+            }
+
+            table {
+                font-size: 0.8rem;
             }
 
             th, td {
-                padding: 10px 12px;
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+
+            .method-name {
+                font-size: 0.8rem;
+                min-width: 100px;
+            }
+
+            .improvement-badge {
+                padding: 2px 4px;
+                font-size: 0.65em;
+                margin-left: 4px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero {
+                padding: 30px 12px;
+            }
+
+            .title {
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .author {
                 font-size: 0.85rem;
+            }
+
+            .affiliation {
+                font-size: 0.8rem;
+            }
+
+            .abstract {
+                padding: 16px;
+            }
+
+            .abstract p {
+                font-size: 0.95rem;
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .section-desc {
+                font-size: 0.95rem;
+            }
+
+            .result-header h4 {
+                font-size: 0.95rem;
+            }
+
+            .result-header p {
+                font-size: 0.8rem;
+            }
+
+            .media-label {
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
+
+            th, td {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+
+            .improvement-badge {
+                font-size: 0.6em;
             }
         }
     </style>
@@ -867,6 +1037,270 @@
         </div>
     </section>
 
+    <!-- Static Scenes Section -->
+    <section class="section" id="static-scenes">
+        <div class="container wide">
+            <div class="section-header scroll-animate">
+                <span class="section-tag">Results</span>
+                <h2 class="section-title">Static Scene Reconstruction</h2>
+                <p class="section-desc">
+                    VIGA reconstructs complex 3D scenes from single images, generating executable code that faithfully recreates the visual content.
+                </p>
+            </div>
+
+            <div class="results-grid">
+                <!-- Result Card 1 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 1: Golden Gate Bridge</h4>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/static/goldengate/target.png" alt="Golden Gate Bridge Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/static/goldengate/goldengate.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Card 2 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 2: The White House</h4>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/static/whitehouse/target.png" alt="White House Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/static/whitehouse/whitehouse.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Card 3 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 3: Bathroom</h4>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/static/bathroom/target.png" alt="Bathroom Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/static/bathroom/bathroom.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Card 4 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 4: Restroom</h4>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/static/restroom/target.png" alt="Restroom Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/static/restroom/restroom.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Card 5 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 5: Kitchen</h4>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/static/kitchen/target.png" alt="Kitchen Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/static/kitchen/kitchen.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Card 6 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 6: Blue Hour</h4>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/static/blueroom/target.jpeg" alt="Blue Hour Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/static/blueroom/blueroom.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Scenes Section -->
+    <section class="section" id="dynamic-scenes">
+        <div class="container wide">
+            <div class="section-header scroll-animate">
+                <span class="section-tag">Results</span>
+                <h2 class="section-title">Dynamic Scene Reconstruction</h2>
+                <p class="section-desc">
+                    VIGA generates 4D dynamic scenes with physics simulation, responding to natural language instructions for complex temporal behaviors.
+                </p>
+            </div>
+
+            <div class="results-grid">
+                <!-- Dynamic Result Card 1 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 1: Billiards</h4>
+                        <p>"The white ball strikes other balls."</p>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/dynamic/billiards/target.png" alt="Billiards Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/dynamic/billiards/billiards.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Result Card 2 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 2: Art</h4>
+                        <p>"Throw a ball to knock over all the objects."</p>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/dynamic/art/target.png" alt="Art Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/dynamic/art/art.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Result Card 3 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 3: Earthquake</h4>
+                        <p>"Simulate an earthquake scenario: Objects on the table shake and then fall off."</p>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/dynamic/earthquake/target.png" alt="Earthquake Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/dynamic/earthquake/earthquake.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Result Card 4 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 4: Mirror</h4>
+                        <p>"Throw a ball to break the mirror."</p>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/dynamic/mirror/target.png" alt="Mirror Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/dynamic/mirror/mirror.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Result Card 5 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 5: Fireplace</h4>
+                        <p>"Build the fireplace and simulate the flame effect."</p>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/dynamic/fire/target.png" alt="Fireplace Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/dynamic/fire/fire.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Result Card 6 -->
+                <div class="result-card scroll-animate">
+                    <div class="result-header">
+                        <h4>Scene 6: Waterfall</h4>
+                        <p>"Simulating the dynamic effects of water flow."</p>
+                    </div>
+                    <div class="result-media">
+                        <div class="media-item">
+                            <img src="assets/dynamic/waterfall/target.png" alt="Waterfall Input">
+                            <span class="media-label">Input<br>Image</span>
+                        </div>
+                        <div class="media-item">
+                            <video controls muted loop playsinline>
+                                <source src="assets/dynamic/waterfall/waterfall.mp4" type="video/mp4">
+                            </video>
+                            <span class="media-label">Output<br>Scene</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Pipeline Video Section -->
     <section class="section" id="pipeline">
         <div class="container">
@@ -894,289 +1328,6 @@
         </div>
     </section>
 
-    <!-- Results Section -->
-    <section class="section" id="results">
-        <div class="container wide">
-            <div class="section-header scroll-animate">
-                <span class="section-tag">Results</span>
-                <h2 class="section-title">Qualitative Results</h2>
-                <p class="section-desc">
-                    Explore our results on static scene and dynamic scene reconstruction.
-                </p>
-            </div>
-
-            <div class="results-tabs scroll-animate">
-                <button class="tab-btn active" data-tab="static">Static Scenes</button>
-                <button class="tab-btn" data-tab="dynamic">Dynamic Scenes</button>
-            </div>
-
-            <!-- Static Scenes Tab -->
-            <div class="tab-content active" id="static">
-                <div class="results-grid">
-                    <!-- Result Card 1 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 1: Golden Gate Bridge</h4>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/static/goldengate/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/static/goldengate/goldengate.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Result Card 6 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 2: The White House</h4>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/static/whitehouse/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/static/whitehouse/whitehouse.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Result Card 2 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 3: Bathroom</h4>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/static/bathroom/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/static/bathroom/bathroom.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Result Card 3 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 4: Restroom</h4>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/static/restroom/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/static/restroom/restroom.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Result Card 4 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 5: Kitchen</h4>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/static/kitchen/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/static/kitchen/kitchen.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Result Card 5 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 6: Blue Hour</h4>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/static/blueroom/target.jpeg" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/static/blueroom/blueroom.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-
-            <!-- Dynamic Scenes Tab -->
-            <div class="tab-content" id="dynamic">
-                <div class="results-grid">
-                    <!-- Dynamic Result Card 1 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 1: Billiards</h4>
-                            <p>"The white ball strikes other balls."</p>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/dynamic/billiards/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/dynamic/billiards/billiards.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Result Card 5 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 2: Art</h4>
-                            <p>"Throw a ball to knock over all the objects."</p>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/dynamic/art/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/dynamic/art/art.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Result Card 4 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 3: Earthquake</h4>
-                            <p>"Simulate an earthquake scenario: Objects on the table shake and then fall off."</p>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/dynamic/earthquake/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/dynamic/earthquake/earthquake.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Result Card 2 -->
-                    <!-- <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 2: Conveyor</h4>
-                            <p>"The box rolled on the conveyor belt and fell at the end."</p>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/dynamic/conveyor/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/dynamic/conveyor/conveyor.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Dynamic Result Card 3 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 4: Mirror</h4>
-                            <p>"Throw a ball to break the mirror."</p>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/dynamic/mirror/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/dynamic/mirror/mirror.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Result Card 5 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 5: Fireplace</h4>
-                            <p>"Build the fireplace and simulate the flame effect."</p>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/dynamic/fire/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/dynamic/fire/fire.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Result Card 6 -->
-                    <div class="result-card scroll-animate">
-                        <div class="result-header">
-                            <h4>Scene 6: Waterfall</h4>
-                            <p>"Simulating the dynamic effects of water flow."</p>
-                        </div>
-                        <div class="result-media">
-                            <div class="media-item">
-                                <img src="assets/dynamic/waterfall/target.png" alt="Golden Gate Bridge Input">
-                                <span class="media-label">Input<br>Image</span>
-                            </div>
-                            <div class="media-item">
-                                <video controls muted loop playsinline>
-                                    <source src="assets/dynamic/waterfall/waterfall.mp4" type="video/mp4">
-                                </video>
-                                <span class="media-label">Output<br>Scene</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Quantitative Results Section -->
     <section class="section" id="quantitative">
