@@ -11,19 +11,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-tertiary: #1a1a25;
-            --text-primary: #e8e6e3;
-            --text-secondary: #a8a5a0;
-            --text-muted: #6b6966;
-            --accent-primary: #f7b267;
-            --accent-secondary: #e8985a;
-            --accent-glow: rgba(247, 178, 103, 0.15);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --card-bg: rgba(26, 26, 37, 0.6);
-            --gradient-1: linear-gradient(135deg, #f7b267 0%, #e8985a 50%, #d67f4c 100%);
-            --gradient-2: linear-gradient(135deg, rgba(247, 178, 103, 0.1) 0%, rgba(232, 152, 90, 0.05) 100%);
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #f0f1f3;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a5a;
+            --text-muted: #6b7280;
+            --accent-primary: #2563eb;
+            --accent-secondary: #1d4ed8;
+            --accent-glow: rgba(37, 99, 235, 0.1);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --gradient-1: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            --gradient-2: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(29, 78, 216, 0.02) 100%);
         }
 
         * {
@@ -53,11 +53,11 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
-            opacity: 0.4;
-            background-image: 
-                radial-gradient(ellipse at 20% 20%, rgba(247, 178, 103, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(232, 152, 90, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(214, 127, 76, 0.04) 0%, transparent 70%);
+            opacity: 0.5;
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(29, 78, 216, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(30, 64, 175, 0.02) 0%, transparent 70%);
         }
 
         .bg-grid {
@@ -68,9 +68,9 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
             background-size: 60px 60px;
         }
 
@@ -254,7 +254,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             background: var(--bg-secondary);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             animation: fadeInUp 0.8s ease-out 0.5s both;
         }
 
@@ -340,7 +340,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             background: var(--bg-secondary);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .video-wrapper {
@@ -424,15 +424,9 @@
 
         /* Result Cards */
         .results-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 40px;
-        }
-
-        @media (max-width: 1024px) {
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         .result-card {
@@ -446,8 +440,8 @@
 
         .result-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(247, 178, 103, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
 
         .result-header {
@@ -470,9 +464,10 @@
 
         .result-media {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             width: 100%;
             box-sizing: border-box;
+            gap: 2px;
         }
 
         .result-media.single {
@@ -484,7 +479,7 @@
             aspect-ratio: 16/9;
             background: var(--bg-tertiary);
             overflow: hidden;
-            min-height: 200px;
+            min-height: 250px;
             box-sizing: border-box;
             max-width: 100%;
         }
@@ -502,12 +497,13 @@
         .media-label {
             position: absolute;
             top: 8px;
-            right: 0px;
+            right: 8px;
             padding: 6px 10px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 4px;
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             backdrop-filter: blur(4px);
             text-align: center;
             line-height: 1.4;
@@ -1061,16 +1057,20 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/static/goldengate/render.png" alt="Golden Gate Bridge Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/static/goldengate/goldengate.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Fly<br>Through</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Result Card 2 -->
-                <div class="result-card scroll-animate">
+                <!-- <div class="result-card scroll-animate">
                     <div class="result-header">
                         <h4>Scene 2: The White House</h4>
                     </div>
@@ -1080,18 +1080,22 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/static/whitehouse/render.png" alt="White House Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/static/whitehouse/whitehouse.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Fly<br>Through</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Result Card 3 -->
                 <div class="result-card scroll-animate">
                     <div class="result-header">
-                        <h4>Scene 3: Bathroom</h4>
+                        <h4>Scene 2: Bathroom</h4>
                     </div>
                     <div class="result-media">
                         <div class="media-item">
@@ -1099,10 +1103,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/static/bathroom/render.png" alt="Bathroom Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/static/bathroom/bathroom.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Fly<br>Through</span>
                         </div>
                     </div>
                 </div>
@@ -1110,7 +1118,7 @@
                 <!-- Result Card 4 -->
                 <div class="result-card scroll-animate">
                     <div class="result-header">
-                        <h4>Scene 4: Restroom</h4>
+                        <h4>Scene 3: Restroom</h4>
                     </div>
                     <div class="result-media">
                         <div class="media-item">
@@ -1118,10 +1126,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/static/restroom/render.png" alt="Restroom Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/static/restroom/restroom.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Fly<br>Through</span>
                         </div>
                     </div>
                 </div>
@@ -1129,7 +1141,7 @@
                 <!-- Result Card 5 -->
                 <div class="result-card scroll-animate">
                     <div class="result-header">
-                        <h4>Scene 5: Kitchen</h4>
+                        <h4>Scene 4: Kitchen</h4>
                     </div>
                     <div class="result-media">
                         <div class="media-item">
@@ -1137,10 +1149,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/static/kitchen/render.png" alt="Kitchen Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/static/kitchen/kitchen.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Fly<br>Through</span>
                         </div>
                     </div>
                 </div>
@@ -1148,7 +1164,7 @@
                 <!-- Result Card 6 -->
                 <div class="result-card scroll-animate">
                     <div class="result-header">
-                        <h4>Scene 6: Blue Hour</h4>
+                        <h4>Scene 5: Blue Hour</h4>
                     </div>
                     <div class="result-media">
                         <div class="media-item">
@@ -1156,10 +1172,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/static/blueroom/render.png" alt="Blue Hour Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/static/blueroom/blueroom.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Fly<br>Through</span>
                         </div>
                     </div>
                 </div>
@@ -1191,10 +1211,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/dynamic/billiards/render.png" alt="Billiards Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/dynamic/billiards/billiards.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Dynamic<br>Scene</span>
                         </div>
                     </div>
                 </div>
@@ -1211,10 +1235,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/dynamic/art/render.png" alt="Art Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/dynamic/art/art.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Dynamic<br>Scene</span>
                         </div>
                     </div>
                 </div>
@@ -1231,10 +1259,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/dynamic/earthquake/render.png" alt="Earthquake Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/dynamic/earthquake/earthquake.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Dynamic<br>Scene</span>
                         </div>
                     </div>
                 </div>
@@ -1251,10 +1283,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/dynamic/mirror/render.png" alt="Mirror Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/dynamic/mirror/mirror.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Dynamic<br>Scene</span>
                         </div>
                     </div>
                 </div>
@@ -1271,10 +1307,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/dynamic/fire/render.png" alt="Fireplace Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/dynamic/fire/fire.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Dynamic<br>Scene</span>
                         </div>
                     </div>
                 </div>
@@ -1291,10 +1331,14 @@
                             <span class="media-label">Input<br>Image</span>
                         </div>
                         <div class="media-item">
+                            <img src="assets/dynamic/waterfall/render.png" alt="Waterfall Render">
+                            <span class="media-label">Reconstruction<br>View</span>
+                        </div>
+                        <div class="media-item">
                             <video controls muted loop playsinline>
                                 <source src="assets/dynamic/waterfall/waterfall.mp4" type="video/mp4">
                             </video>
-                            <span class="media-label">Output<br>Scene</span>
+                            <span class="media-label">Dynamic<br>Scene</span>
                         </div>
                     </div>
                 </div>
