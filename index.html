@@ -564,6 +564,25 @@
             overflow-x: auto;
         }
 
+        .table-video-container {
+            padding: 24px 32px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .table-video-container .video-caption {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .table-video-container video {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -1061,7 +1080,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/static/goldengate/goldengate.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Fly<br>Through</span>
@@ -1084,7 +1103,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/static/whitehouse/whitehouse.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Fly<br>Through</span>
@@ -1107,7 +1126,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/static/bathroom/bathroom.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Fly<br>Through</span>
@@ -1130,7 +1149,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/static/restroom/restroom.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Fly<br>Through</span>
@@ -1153,7 +1172,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/static/kitchen/kitchen.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Fly<br>Through</span>
@@ -1176,7 +1195,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/static/blueroom/blueroom.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Fly<br>Through</span>
@@ -1215,7 +1234,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/dynamic/billiards/billiards.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Dynamic<br>Scene</span>
@@ -1239,7 +1258,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/dynamic/art/art.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Dynamic<br>Scene</span>
@@ -1263,7 +1282,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/dynamic/earthquake/earthquake.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Dynamic<br>Scene</span>
@@ -1287,7 +1306,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/dynamic/mirror/mirror.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Dynamic<br>Scene</span>
@@ -1311,7 +1330,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/dynamic/fire/fire.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Dynamic<br>Scene</span>
@@ -1335,7 +1354,7 @@
                             <span class="media-label">Reconstruction<br>View</span>
                         </div>
                         <div class="media-item">
-                            <video controls muted loop playsinline>
+                            <video autoplay muted loop playsinline>
                                 <source src="assets/dynamic/waterfall/waterfall.mp4" type="video/mp4">
                             </video>
                             <span class="media-label">Dynamic<br>Scene</span>
@@ -1353,7 +1372,10 @@
                 <span class="section-tag">Method</span>
                 <h2 class="section-title">Pipeline Overview</h2>
                 <p class="section-desc">
-                    Watch how VIGA processes visual input and generates code to build 3D and 4D scenes.
+                    Given any input image, VIGA can reconstruct the 3D scene in Blender through an analysis-by-synthesis process.<br>
+                    First, a generation agent proposes executable code that modifies the scene.<br>
+                    After executing the code, a verification agent observes the updated scene and produces  feedback for refinement.<br> 
+                    This feedback is then returned to the generator to guide the next round of generation.
                 </p>
             </div>
 
@@ -1365,8 +1387,8 @@
                         <span>Pipeline Video Placeholder</span>
                         <span style="font-size: 0.8rem; margin-top: 8px;">Replace with: video/pipeline.mp4</span>
                     </div>
-                    <video controls muted loop playsinline>
-                        <source src="video/pipeline.mp4" type="video/mp4">
+                    <video autoplay muted loop playsinline>
+                        <source src="video/pipeline_new.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>
@@ -1480,6 +1502,12 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="table-video-container">
+                        <p class="video-caption">Watch how VIGA performs fine-grained visual editing on BlenderGym</p>
+                        <video autoplay muted loop playsinline>
+                            <source src="video/blendergym.mp4" type="video/mp4">
+                        </video>
                     </div>
                 </div>
 
